@@ -1,7 +1,7 @@
 [project]
 name = "demolangchain"
 version = "0.1.0"
-description = "Proyecto con agentes de Langchain"
+description = "Project with Langchain agents"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

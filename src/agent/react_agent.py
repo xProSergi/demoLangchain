@@ -10,7 +10,7 @@ class SimpleReActAgent:
        
         api_key = os.getenv("GOOGLE_API_KEY")
         if not api_key:
-            raise ValueError("La variable de entorno no está definida")
+            raise ValueError("Environment variable is not defined")
 
         self.llm = ChatGoogleGenerativeAI(
             model="gemini-2.5-flash",
@@ -24,15 +24,15 @@ class SimpleReActAgent:
 
      
         prompt = f"""
-        Usa esta información para responder claramente a la pregunta:
+        Use the following information to answer the question clearly:
         {observation}
 
-        Pregunta: {question}
+        Question: {question}
 
-        Responde solo la respuesta final, sin explicaciones.
+        Provide only the final answer, without explanations.
         """
         response = self.llm.invoke(prompt)
 
        
-        print("Respuesta:", response.content)
+        print("Answer:", response.content)
         return response.content
