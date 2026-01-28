@@ -5,7 +5,10 @@ description = "Proyecto con agentes de Langchain"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "ddgs>=9.10.0",
     "langchain>=1.2.7",
     "langchain-community>=0.4.1",
+    "langchain-google-genai>=4.2.0",
     "langgraph>=1.0.7",
+    "python-dotenv>=1.2.1",
 ]

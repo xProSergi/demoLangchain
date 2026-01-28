@@ -1,6 +1,5 @@
-def main():
-    print("Hello from demolangchain!")
-
+from agent.react_agent import SimpleReActAgent
 
 if __name__ == "__main__":
-    main()
+    agent = SimpleReActAgent()
+    agent.run("¿Cuál es la capital de Austria?")
