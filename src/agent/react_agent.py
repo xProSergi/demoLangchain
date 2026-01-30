@@ -1,38 +1,25 @@
-import os
-from dotenv import load_dotenv
-from tools.search import search
-from langchain_google_genai import ChatGoogleGenerativeAI
+from agent.graph import build_graph
 
-load_dotenv()
 
 class SimpleReActAgent:
+    
     def __init__(self):
-       
-        api_key = os.getenv("GOOGLE_API_KEY")
-        if not api_key:
-            raise ValueError("Environment variable is not defined")
-
-        self.llm = ChatGoogleGenerativeAI(
-            model="gemini-2.5-flash",
-            temperature=0,
-            api_key=api_key
-        )
+        self.app = build_graph()
 
     def run(self, question: str) -> str:
-        
-        observation = search(question)
+        initial_state = {
+            "question": question,
+            "selected_tool": None,
+            "tool_input": None,
+            "tool_result": None,
+            "final_answer": None,
+            "error": None,
+        }
 
-     
-        prompt = f"""
-        Use the following information to answer the question clearly:
-        {observation}
+        result = self.app.invoke(initial_state)
 
-        Question: {question}
+        if result.get("error"):
+            raise RuntimeError(result["error"])
 
-        Provide only the final answer, without explanations.
-        """
-        response = self.llm.invoke(prompt)
-
-       
-        print("Answer:", response.content)
-        return response.content
+        print("Answer:", result["final_answer"])
+        return result["final_answer"]
